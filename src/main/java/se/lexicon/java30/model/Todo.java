@@ -6,7 +6,11 @@ public class Todo {
     private boolean done;
     private Person assignee;
 
-    public Todo(int todoId, String description) {
+    public Todo() {
+        this.TodoId = getTodoId();
+    }
+
+    public Todo(final int todoId, String description) {
         TodoId = todoId;
         this.description = description;
     }
