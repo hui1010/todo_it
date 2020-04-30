@@ -1,13 +1,12 @@
 package se.lexicon.java30.data;
 
-public class PersonSequencer {
+public class TodoSequencer {
     static int counter = 0;
-
-    public static int nextPersonId(){
+    public static int nextTodoId(){
         return ++counter;
     }
 
-    public static int getPersonId(){
+    public static int getTodoId(){
         return counter;
     }
 
