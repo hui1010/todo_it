@@ -1,9 +1,5 @@
 package se.lexicon.java30;
 
-/**
- * Hello world!
- *
- */
 public class App 
 {
     public static void main( String[] args )
