@@ -11,7 +11,7 @@ public class PersonSequencer {
         return counter;
     }
 
-    public static void reset(){
+    public static void resetPersonId(){
         counter = 0;
     }
 }

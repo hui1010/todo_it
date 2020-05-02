@@ -1,4 +1,4 @@
-package se.lexicon.java30.modeltest;
+package se.lexicon.java30.modelTest;
 
 import org.junit.Test;
 import se.lexicon.java30.model.Person;

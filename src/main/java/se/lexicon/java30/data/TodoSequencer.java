@@ -10,7 +10,7 @@ public class TodoSequencer {
         return counter;
     }
 
-    public static void reset(){
+    public static void resetTodoId(){
         counter = 0;
     }
 }
