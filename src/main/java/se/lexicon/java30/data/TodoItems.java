@@ -33,7 +33,7 @@ public class TodoItems {
         return todo;
     }
 
-    public Todo FindById(int todoId){
+    public Todo findById(int todoId){
         Todo matchTodo = new Todo();
         for (int i = 0; i < todo.length; i++) {
             if(todoId == todo[i].getTodoId()) {
@@ -54,4 +54,53 @@ public class TodoItems {
     public void clear(){
         todo = new Todo[0];
     }
+
+    public Todo[] findByDoneStatus(boolean doneStatus){
+        Todo[] matchStatus = new Todo[0];
+        for (int i = 0; i < todo.length; i++) {
+            if(doneStatus == todo[i].isDone()){
+                matchStatus = Arrays.copyOf(matchStatus, matchStatus.length + 1);
+                matchStatus[matchStatus.length - 1] = todo[i];
+            }
+        }
+        return matchStatus;
+    }
+
+    public Todo[] findByAssignee(int personId){
+        Todo[] matchAssignee = new Todo[0];
+        for (int i = 0; i < todo.length; i++) {
+            if (todo[i].getAssignee() != null){
+                if (personId == todo[i].getAssignee().getPersonId()) {
+                    matchAssignee = Arrays.copyOf(matchAssignee, matchAssignee.length + 1);
+                    matchAssignee[matchAssignee.length - 1] = todo[i];
+                }
+            }
+        }
+        return matchAssignee;
+    }
+
+    public Todo[] findByAssignee(Person assignee){
+        Todo[] matchAssignee = new Todo[0];
+        for (int i = 0; i < todo.length ; i++) {
+            if (todo[i].getAssignee() != null){
+                if (assignee == todo[i].getAssignee()){
+                    matchAssignee = Arrays.copyOf(matchAssignee, matchAssignee.length + 1);
+                    matchAssignee[matchAssignee.length - 1] = todo[i];
+                }
+            }
+        }
+        return matchAssignee;
+    }
+
+    public Todo[] findUnassignedTodoItems(){
+        Todo[] unassigned = new Todo[0];
+        for (int i = 0; i < todo.length; i++) {
+            if (todo[i].getAssignee() == null){
+                unassigned = Arrays.copyOf(unassigned, unassigned.length + 1);
+                unassigned[unassigned.length - 1] = todo[i];
+            }
+        }
+        return unassigned;
+    }
+
 }
