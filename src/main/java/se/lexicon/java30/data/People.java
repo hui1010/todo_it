@@ -45,9 +45,9 @@ public class People {
 
     public Person[] addNewPerson(String firstName, String lastName){
         Person addedPerson = new Person(nextPersonId(), firstName, lastName);
-        Person[] addedArray = Arrays.copyOf(person, person.length + 1);
-        addedArray[addedArray.length - 1] = addedPerson;
-        return addedArray;
+        Person[] addedPersonArray = Arrays.copyOf(person, person.length + 1);
+        addedPersonArray[addedPersonArray.length - 1] = addedPerson;
+        return addedPersonArray;
     }
 
     public void clear(){

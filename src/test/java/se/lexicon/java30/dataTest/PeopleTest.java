@@ -27,8 +27,11 @@ public class PeopleTest {
 
     @Test
     public void test_findAll_method() { // what is the method used for?
-        People actualPeople = new People(testPeopleObject.findAll());
-        assertEquals(actualPeople.getPerson(), testPeopleObject.getPerson());
+        People expectedPeople = new People();
+        setPerson(expectedPeople.addNewPerson("Anna", "Bok"));
+        setPerson(expectedPeople.addNewPerson("Bo", "Bosson"));
+        setPerson(expectedPeople.addNewPerson("Åke", "Tor"));
+        assertEquals(expectedPeople.findAll(), testPeopleObject.findAll());
     }
 
     @Test
