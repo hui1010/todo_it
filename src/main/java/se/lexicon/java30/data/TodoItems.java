@@ -29,47 +29,47 @@ public class TodoItems {
         return todo.length;
     }
 
-    public Todo[] findAll(){ // what will this method be used for?
+    public Todo[] findAll(){
         return todo;
     }
 
-    public Todo findById(int todoId){
-        Todo matchTodo = new Todo();
-        for (int i = 0; i < todo.length; i++) {
-            if(todoId == todo[i].getTodoId()) {
-                matchTodo = todo[i];
+    public Todo findById(final int todoId){
+        Todo matchTodo = new Todo(); // create a new object that will contain the matching result
+        for (int i = 0; i < todo.length; i++) { //go through all the elements
+            if(todoId == todo[i].getTodoId()) { //find the one that has the same ID
+                matchTodo = todo[i];// put it inside the newly created object
                 break;
             }
         }
         return matchTodo;
     }
 
-    public Todo[] addNewTodo(String description){
-        Todo addedTodo = new Todo(nextTodoId(), description);
-        Todo[] addedTodoArray = Arrays.copyOf(todo, todo.length + 1);
-        addedTodoArray[addedTodoArray.length - 1] = addedTodo;
-        return addedTodoArray;
+    public Todo[] addNewTodo(final String description){
+        Todo addedTodo = new Todo(nextTodoId(), description);//create a new object that will be added in
+        Todo[] addedTodoArray = Arrays.copyOf(todo, todo.length + 1);//create a new array that is one size bigger
+        addedTodoArray[addedTodoArray.length - 1] = addedTodo;//put the to be added object at the end of array
+        return addedTodoArray;//bingo
     }
 
     public void clear(){
         todo = new Todo[0];
     }
 
-    public Todo[] findByDoneStatus(boolean doneStatus){
-        Todo[] matchStatus = new Todo[0];
-        for (int i = 0; i < todo.length; i++) {
-            if(doneStatus == todo[i].isDone()){
-                matchStatus = Arrays.copyOf(matchStatus, matchStatus.length + 1);
-                matchStatus[matchStatus.length - 1] = todo[i];
+    public Todo[] findByDoneStatus(final boolean doneStatus){
+        Todo[] matchStatus = new Todo[0];//create a new array to contain the matching objects, initialize 0
+        for (int i = 0; i < todo.length; i++) {//go through all the elements
+            if(doneStatus == todo[i].isDone()){//find who has the matching status
+                matchStatus = Arrays.copyOf(matchStatus, matchStatus.length + 1);//extend the newly made array
+                matchStatus[matchStatus.length - 1] = todo[i];//put the matching objects inside the array
             }
         }
         return matchStatus;
     }
 
-    public Todo[] findByAssignee(int personId){
+    public Todo[] findByAssignee(final int personId){
         Todo[] matchAssignee = new Todo[0];
         for (int i = 0; i < todo.length; i++) {
-            if (todo[i].getAssignee() != null){
+            if (todo[i].getAssignee() != null){ // have to, must, make sure to check if it is null!!!!!
                 if (personId == todo[i].getAssignee().getPersonId()) {
                     matchAssignee = Arrays.copyOf(matchAssignee, matchAssignee.length + 1);
                     matchAssignee[matchAssignee.length - 1] = todo[i];
@@ -79,7 +79,7 @@ public class TodoItems {
         return matchAssignee;
     }
 
-    public Todo[] findByAssignee(Person assignee){
+    public Todo[] findByAssignee(final Person assignee){ //overload
         Todo[] matchAssignee = new Todo[0];
         for (int i = 0; i < todo.length ; i++) {
             if (todo[i].getAssignee() != null){
@@ -103,4 +103,33 @@ public class TodoItems {
         return unassigned;
     }
 
+    public boolean removeTodoItem(final String description) {
+        int index = getIndex(todo, description);
+        if (index < 0) {
+            return false;
+        }
+        todo = removeByIndex(todo, index);
+        return true;
+    }
+
+    public Todo[] removeByIndex(final Todo[] original, final int index){
+        Todo[] first = Arrays.copyOfRange(original, 0, index);
+        Todo[] last = Arrays.copyOfRange(original, index + 1, original.length);
+        Todo[] combined = Arrays.copyOf(first, first.length + last.length);
+        for(int i = first.length, j = 0; j < last.length; i++, j++) {
+            combined[i] = last[j];
+        }
+        return combined;
+    }
+
+    public int getIndex(Todo[] original, String description) {
+        int index = -1;
+        for (int i = 0; i < original.length; i++){
+            if (description == original[i].getDescription()){
+                index = i;
+                break;
+            }
+        }
+        return index;
+    }
 }

@@ -1,5 +1,6 @@
 package se.lexicon.java30.dataTest;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import se.lexicon.java30.data.TodoItems;
@@ -7,7 +8,9 @@ import se.lexicon.java30.data.TodoItems;
 import static org.junit.Assert.assertEquals;
 import static se.lexicon.java30.data.People.setPerson;
 import static se.lexicon.java30.data.TodoItems.setTodo;
+
 import se.lexicon.java30.data.People;
+import se.lexicon.java30.data.TodoSequencer;
 
 public class TodoItemsTest {
     TodoItems todoItemsTest = new TodoItems();
@@ -30,11 +33,8 @@ public class TodoItemsTest {
 
     @Test
     public void test_find_all_method() {
-        TodoItems expectedTodo = new TodoItems();
-        setTodo(expectedTodo.addNewTodo("read a book"));
-        setTodo(expectedTodo.addNewTodo("buy milk"));
-        setTodo(expectedTodo.addNewTodo("throw the garbage"));
-        assertEquals(expectedTodo.findAll(), todoItemsTest.findAll());
+
+        assertEquals(3, todoItemsTest.findAll().length); // Erik's suggestion
     }
 
     @Test
@@ -82,5 +82,21 @@ public class TodoItemsTest {
     public void unassignedTodoItems_should_return_2() {
         todoItemsTest.findById(3).setAssignee(people.findById(1));
         assertEquals(2, todoItemsTest.findUnassignedTodoItems().length);
+    }
+
+    @Test
+    public void length_should_be_2_after_removing_one_todo_object() {
+        todoItemsTest.removeTodoItem("buy milk");
+        assertEquals(2, todoItemsTest.size());
+        assertEquals("read a book", todoItemsTest.findById(1).getDescription());
+        assertEquals("throw the garbage", todoItemsTest.findById(3).getDescription());
+        assertEquals(null, todoItemsTest.findById(2).getDescription()); // so it actually doesn't remove the Id number
+
+    }
+
+   @After
+    public void tearDown() {
+       todoItemsTest.clear();
+       TodoSequencer.resetTodoId();
     }
 }

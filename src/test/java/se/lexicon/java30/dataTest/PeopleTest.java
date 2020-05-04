@@ -1,9 +1,11 @@
 package se.lexicon.java30.dataTest;
 
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import se.lexicon.java30.data.People;
+import se.lexicon.java30.data.PersonSequencer;
 import se.lexicon.java30.model.Person;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -26,12 +28,9 @@ public class PeopleTest {
     }
 
     @Test
-    public void test_findAll_method() { // what is the method used for?
-        People expectedPeople = new People();
-        setPerson(expectedPeople.addNewPerson("Anna", "Bok"));
-        setPerson(expectedPeople.addNewPerson("Bo", "Bosson"));
-        setPerson(expectedPeople.addNewPerson("Åke", "Tor"));
-        assertEquals(expectedPeople.findAll(), testPeopleObject.findAll());
+    public void test_findAll_method() {
+
+        assertEquals(3,testPeopleObject.findAll().length); // Erik's suggestion
     }
 
     @Test
@@ -54,5 +53,21 @@ public class PeopleTest {
     public void Person_array_become_empty_after_calling_clear_method() {
         testPeopleObject.clear();
         assertEquals(0,testPeopleObject.size());
+    }
+
+    @Test
+    public void Person_arrays_length_should_become_2_after_removing_one_person() {
+        testPeopleObject.removePeople("Bo", "Bosson");
+        assertEquals(2, testPeopleObject.findAll().length);
+        assertEquals("Anna", testPeopleObject.findById(1).getFirstName());
+        assertEquals("Tor", testPeopleObject.findById(3).getLastName());
+        assertEquals(null, testPeopleObject.findById(2).getFirstName());
+    }
+
+
+    @After
+    public void tearDown() {
+        testPeopleObject.clear();
+        PersonSequencer.resetPersonId();
     }
 }
