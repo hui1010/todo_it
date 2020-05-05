@@ -23,6 +23,17 @@ public class PeopleTest {
     }
 
     @Test
+    public void testPeopleObject_successfully_created() {
+        assertEquals("Anna", testPeopleObject.findById(1).getFirstName());
+        assertEquals("Bok", testPeopleObject.findById(1).getLastName());
+        assertEquals("Bo", testPeopleObject.findById(2).getFirstName());
+        assertEquals("Bosson", testPeopleObject.findById(2).getLastName());
+        assertEquals("Åke", testPeopleObject.findById(3).getFirstName());
+        assertEquals("Tor", testPeopleObject.findById(3).getLastName());
+    }
+
+
+    @Test
     public void the_given_array_has_length_3() { // also means the addNewPerson method works
         assertEquals(3,testPeopleObject.size());
     }
