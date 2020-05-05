@@ -1,9 +1,11 @@
 package se.lexicon.java30.modelTest;
 
+import org.junit.After;
 import org.junit.Test;
 import se.lexicon.java30.model.Person;
 import se.lexicon.java30.model.Todo;
 import static org.junit.Assert.assertEquals;
+import static se.lexicon.java30.data.TodoSequencer.resetTodoId;
 
 public class TodoTest {
     @Test
@@ -39,6 +41,11 @@ public class TodoTest {
         assertEquals(expectedPerson.getFirstName(),person.getFirstName());
         assertEquals(expectedPerson.getLastName(), person.getLastName());
         expectedPerson = person;
-        assertEquals(expectedPerson.getFirstName(),person.getPersonId());
+        assertEquals(expectedPerson.getFirstName(),person.getFirstName());
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        resetTodoId();
     }
 }
