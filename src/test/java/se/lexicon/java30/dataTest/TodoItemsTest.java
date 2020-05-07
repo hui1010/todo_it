@@ -4,11 +4,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import se.lexicon.java30.data.TodoItems;
-
 import static org.junit.Assert.assertEquals;
-import static se.lexicon.java30.data.People.setPerson;
-import static se.lexicon.java30.data.TodoItems.setTodo;
-
 import se.lexicon.java30.data.People;
 import se.lexicon.java30.data.TodoSequencer;
 
@@ -18,12 +14,12 @@ public class TodoItemsTest {
 
     @Before
     public void setUp() throws Exception {
-    setTodo(todoItemsTest.addNewTodo("read a book"));
-    setTodo(todoItemsTest.addNewTodo("buy milk"));
-    setTodo(todoItemsTest.addNewTodo("throw the garbage"));
-    setPerson(people.addNewPerson("Anna", "Bok"));
-    setPerson(people.addNewPerson("Bo", "Bosson"));
-    setPerson(people.addNewPerson("Åke", "Tor"));
+    todoItemsTest.addTodoItem("read a book");
+    todoItemsTest.addTodoItem("buy milk");
+    todoItemsTest.addTodoItem("throw the garbage");
+    people.addPerson("Anna", "Bok");
+    people.addPerson("Bo", "Bosson");
+    people.addPerson("Åke", "Tor");
     }
 
     @Test
@@ -33,18 +29,18 @@ public class TodoItemsTest {
 
     @Test
     public void test_find_all_method() {
-
         assertEquals(3, todoItemsTest.findAll().length); // Erik's suggestion
     }
 
     @Test
+    //test if the element gets its ID according to the add sequence
     public void given_Id_number_2_return_buy_milk() {
         assertEquals("buy milk", todoItemsTest.findById(2).getDescription());
     }
 
     @Test
-    public void test_if_a_new_todo_is_added() {
-        setTodo(todoItemsTest.addNewTodo("cook dinner"));
+    public void length_becomes_4_when_a_new_todo_is_added() {
+        todoItemsTest.addTodoItem("cook dinner");
         assertEquals(4, todoItemsTest.size());
     }
 
@@ -55,6 +51,7 @@ public class TodoItemsTest {
     }
 
     @Test
+    //test if the setDone method works, if the status is not set manually, it should have default value false
     public void search_true_return_2_elements() {
         todoItemsTest.findById(1).setDone(true);
         todoItemsTest.findById(2).setDone(true);
@@ -62,6 +59,7 @@ public class TodoItemsTest {
     }
 
     @Test
+    //if two TodoItems are correctly added to one person
     public void search_personId_2_find_2_objects() {
         todoItemsTest.findById(1).setAssignee(people.findById(1));
         todoItemsTest.findById(2).setAssignee(people.findById(2));
@@ -78,7 +76,7 @@ public class TodoItemsTest {
     }
 
     @Test
-
+    //set one assignee then the other two should remain unassigned
     public void unassignedTodoItems_should_return_2() {
         todoItemsTest.findById(3).setAssignee(people.findById(1));
         assertEquals(2, todoItemsTest.findUnassignedTodoItems().length);
@@ -90,8 +88,8 @@ public class TodoItemsTest {
         assertEquals(2, todoItemsTest.size());
         assertEquals("read a book", todoItemsTest.findById(1).getDescription());
         assertEquals("throw the garbage", todoItemsTest.findById(3).getDescription());
-        assertEquals(null, todoItemsTest.findById(2).getDescription()); // so it actually doesn't remove the Id number
-
+        assertEquals(null, todoItemsTest.findById(2).getDescription());
+        // so it actually doesn't remove the Id number
     }
 
    @After

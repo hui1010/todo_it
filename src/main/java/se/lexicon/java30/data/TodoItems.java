@@ -44,16 +44,23 @@ public class TodoItems {
         return matchTodo;
     }
 
-    public Todo[] addNewTodo(final String description){
+    public boolean addTodoItem(final String description){
+        //empty pointer exception check
+        if (description == null){
+            return false;
+        }
+
+        todo = addNewTodo(todo, description);
+        return true;
+    }
+
+    private Todo[] addNewTodo(Todo[] source, final String description){
         Todo addedTodo = new Todo(nextTodoId(), description);//create a new object that will be added in
-        Todo[] addedTodoArray = Arrays.copyOf(todo, todo.length + 1);//create a new array that is one size bigger
+        Todo[] addedTodoArray = Arrays.copyOf(source, source.length + 1);//create a new array that is one size bigger
         addedTodoArray[addedTodoArray.length - 1] = addedTodo;//put the to be added object at the end of array
         return addedTodoArray;//bingo
     }
 
-    public void clear(){
-        todo = new Todo[0];
-    }
 
     public Todo[] findByDoneStatus(final boolean doneStatus){
         Todo[] matchStatus = new Todo[0];//create a new array to contain the matching objects, initialize 0
@@ -112,7 +119,7 @@ public class TodoItems {
         return true;
     }
 
-    public Todo[] removeByIndex(final Todo[] original, final int index){
+    private Todo[] removeByIndex(final Todo[] original, final int index){
         Todo[] first = Arrays.copyOfRange(original, 0, index);
         Todo[] last = Arrays.copyOfRange(original, index + 1, original.length);
         Todo[] combined = Arrays.copyOf(first, first.length + last.length);
@@ -122,7 +129,7 @@ public class TodoItems {
         return combined;
     }
 
-    public int getIndex(Todo[] original, String description) {
+    private int getIndex(Todo[] original, String description) {
         int index = -1;
         for (int i = 0; i < original.length; i++){
             if (description == original[i].getDescription()){
@@ -131,5 +138,9 @@ public class TodoItems {
             }
         }
         return index;
+    }
+
+    public void clear(){
+        todo = new Todo[0];
     }
 }

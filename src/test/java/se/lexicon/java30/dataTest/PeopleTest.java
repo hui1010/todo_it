@@ -1,29 +1,25 @@
 package se.lexicon.java30.dataTest;
 
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import se.lexicon.java30.data.People;
 import se.lexicon.java30.data.PersonSequencer;
-import se.lexicon.java30.model.Person;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static se.lexicon.java30.data.People.setPerson;
-import static se.lexicon.java30.data.PersonSequencer.nextPersonId;
 
 public class PeopleTest {
     People testPeopleObject = new People();
 
     @Before
     public void setUp() throws Exception {
-        setPerson(testPeopleObject.addNewPerson("Anna", "Bok"));
-        setPerson(testPeopleObject.addNewPerson("Bo", "Bosson"));
-        setPerson(testPeopleObject.addNewPerson("Åke", "Tor"));
+        testPeopleObject.addPerson("Anna", "Bok");
+        testPeopleObject.addPerson("Bo", "Bosson");
+        testPeopleObject.addPerson("Åke", "Tor");
     }
 
     @Test
-    public void testPeopleObject_successfully_created() {
+    public void testPeopleObject_successfully_created_with_3_people_added() {
         assertEquals("Anna", testPeopleObject.findById(1).getFirstName());
         assertEquals("Bok", testPeopleObject.findById(1).getLastName());
         assertEquals("Bo", testPeopleObject.findById(2).getFirstName());
@@ -34,7 +30,7 @@ public class PeopleTest {
 
 
     @Test
-    public void the_given_array_has_length_3() { // also means the addNewPerson method works
+    public void the_given_array_has_length_3() { // also means the add method works
         assertEquals(3,testPeopleObject.size());
     }
 
@@ -53,7 +49,7 @@ public class PeopleTest {
     @Test
     public void return_true_if_a_new_person_is_added() {
         boolean isAdded = false;
-        setPerson(testPeopleObject.addNewPerson("Jonas", "Larsson"));
+        testPeopleObject.addPerson("Jonas", "Larsson");
         if(testPeopleObject.size() == 4){
             isAdded = true;
         }
