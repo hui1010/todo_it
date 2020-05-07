@@ -3,8 +3,12 @@ package se.lexicon.java30.dataTest;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import se.lexicon.java30.data.PersonSequencer;
 import se.lexicon.java30.data.TodoItems;
 import static org.junit.Assert.assertEquals;
+import static se.lexicon.java30.data.PersonSequencer.resetPersonId;
+import static se.lexicon.java30.data.TodoSequencer.resetTodoId;
+
 import se.lexicon.java30.data.People;
 import se.lexicon.java30.data.TodoSequencer;
 
@@ -95,6 +99,7 @@ public class TodoItemsTest {
    @After
     public void tearDown() {
        todoItemsTest.clear();
-       TodoSequencer.resetTodoId();
+       resetTodoId();
+       resetPersonId();
     }
 }

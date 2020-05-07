@@ -2,10 +2,9 @@ package se.lexicon.java30.data;
 
 import se.lexicon.java30.model.Person;
 import se.lexicon.java30.model.Todo;
-
 import java.util.Arrays;
-
 import static se.lexicon.java30.data.TodoSequencer.nextTodoId;
+
 
 public class TodoItems {
     private static Todo[] todo = new Todo[0];
